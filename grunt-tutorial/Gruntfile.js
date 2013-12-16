@@ -4,6 +4,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-contrib-jasmine');
 
   var sassFiles = [{
     expand: true,
@@ -56,6 +57,15 @@ module.exports = function (grunt) {
             ]
           }
         }
+      }
+    },
+    jasmine: {
+      shell: {
+        options: {
+          specs: ['test/specs/**/*_spec.js'],
+          vendor: ['app/js/vendor/**/*.js']
+        },
+        src: ['app/js/**/*.js', '!app/js/vendor/**/*.js']
       }
     }
   });

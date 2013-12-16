@@ -8,5 +8,10 @@ describe('Gobline', function () {
     expect(goblin.name).toEqual('Dakka');
   });
 
-  it('speaks', function () {});
+  it('speaks', function () {
+    spyOn(console, 'log');
+    var goblin = new Goblin();
+    goblin.speak();
+    expect(console.log).toHaveBeenCalledWith('Waaagh!');
+  });
 });

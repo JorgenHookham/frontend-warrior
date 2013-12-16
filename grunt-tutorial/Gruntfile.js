@@ -4,6 +4,7 @@ module.exports = function (grunt) {
   [
     'grunt-contrib-clean',
     'grunt-contrib-connect',
+    'grunt-contrib-copy',
     'grunt-contrib-jasmine',
     'grunt-contrib-jshint',
     'grunt-contrib-sass',
@@ -95,6 +96,21 @@ module.exports = function (grunt) {
     },
     clean: {
       all: ['.tmp', '.grunt', 'test/index.html']
+    },
+    copy: {
+      release: {
+        files: [{
+          expand: true,
+          cwd: 'app',
+          dest: 'build',
+          src: ['*.html', 'js/**/*', 'images/**/*']
+        }, {
+          expand: true,
+          cwd: '.tmp',
+          dest: 'build',
+          src: ['styles/*']
+        }]
+      }
     }
   });
 

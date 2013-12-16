@@ -2,6 +2,7 @@
 
 module.exports = function (grunt) {
   [
+    'grunt-contrib-clean',
     'grunt-contrib-connect',
     'grunt-contrib-jasmine',
     'grunt-contrib-jshint',
@@ -91,6 +92,9 @@ module.exports = function (grunt) {
       test: {
         path: 'http://localhost:9001/test'
       }
+    },
+    clean: {
+      all: ['.tmp', '.grunt', 'test/index.html']
     }
   });
 

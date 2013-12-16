@@ -7,3 +7,4 @@ function Goblin(name) {
 Goblin.prototype.speak = function () {
   console.log('Waaagh!');
 };
+

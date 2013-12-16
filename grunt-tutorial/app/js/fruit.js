@@ -1,1 +1,1 @@
-fruit = 'apples';
+var fruit = 'apples';

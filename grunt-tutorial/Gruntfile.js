@@ -12,7 +12,7 @@ module.exports = function (grunt) {
     src: ['**/*.{sass,scss}'],
     dest: '.tmp/styles/',
     ext: '.css'
-  }]
+  }];
 
   grunt.initConfig({
     jshint: {
@@ -22,7 +22,8 @@ module.exports = function (grunt) {
       all: [
         'Gruntfile.js',
         'app/js/**/*.js',
-        '!app/js/vendor/**/*.js'
+        '!app/js/vendor/**/*.js',
+        'test/**/*.js'
       ]
     },
     sass: {
@@ -54,8 +55,14 @@ module.exports = function (grunt) {
             return [
               connect.static(path.resolve('app')),
               connect.static(path.resolve('.tmp'))
-            ]
+            ];
           }
+        }
+      },
+      test: {
+        options: {
+          port: 9001,
+          keepalive: true
         }
       }
     },
@@ -63,7 +70,8 @@ module.exports = function (grunt) {
       shell: {
         options: {
           specs: ['test/specs/**/*_spec.js'],
-          vendor: ['app/js/vendor/**/*.js']
+          vendor: ['app/js/vendor/**/*.js'],
+          outfile: 'test/index.html'
         },
         src: ['app/js/**/*.js', '!app/js/vendor/**/*.js']
       }

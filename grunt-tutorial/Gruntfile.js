@@ -22,6 +22,7 @@ module.exports = function (grunt) {
   }];
 
   grunt.initConfig({
+    pkg: grunt.file.readJSON('package.json'),
     jshint: {
       options: {
         jshintrc: '.jshintrc'
@@ -116,7 +117,7 @@ module.exports = function (grunt) {
     compress: {
       release: {
         options: {
-          archive: 'webapp.tar.gz'
+          archive: '<%= pkg.name %>-<%= pkg.version %>.tar.gz'
         },
         files: [{
           expand: true,

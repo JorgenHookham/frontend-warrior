@@ -1,10 +1,14 @@
 'use strict';
 
 module.exports = function (grunt) {
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-sass');
-  grunt.loadNpmTasks('grunt-contrib-connect');
-  grunt.loadNpmTasks('grunt-contrib-jasmine');
+  [
+    'grunt-contrib-connect',
+    'grunt-contrib-jasmine',
+    'grunt-contrib-jshint',
+    'grunt-contrib-sass',
+    'grunt-contrib-watch',
+    'grunt-open'
+  ].forEach(grunt.loadNpmTasks);
 
   var sassFiles = [{
     expand: true,
@@ -49,8 +53,7 @@ module.exports = function (grunt) {
         options: {
           port: 9000,
           base: 'app',
-          keepalive: true,
-          middleware: function (connect, options) {
+          middleware: function (connect) {
             var path = require('path');
             return [
               connect.static(path.resolve('app')),
@@ -61,8 +64,7 @@ module.exports = function (grunt) {
       },
       test: {
         options: {
-          port: 9001,
-          keepalive: true
+          port: 9001
         }
       }
     },
@@ -75,6 +77,46 @@ module.exports = function (grunt) {
         },
         src: ['app/js/**/*.js', '!app/js/vendor/**/*.js']
       }
+    },
+    watch: {
+      sass: {
+        files: ['app/sass/*.{sass,scss}'],
+        tasks: ['sass:dev']
+      }
+    },
+    open: {
+      server: {
+        path: 'http://localhost:9000/'
+      },
+      test: {
+        path: 'http://localhost:9001/test'
+      }
     }
   });
+
+  grunt.registerTask('server', 'Run a server', [
+    'jshint',
+    'sass:dev',
+    'connect:server',
+    'open:server',
+    'watch'
+  ]);
+
+  grunt.registerTask('test', 'Run tests in the console', [
+    'jshint',
+    'jasmine'
+  ]);
+
+  grunt.registerTask('test:browser', 'Run tests in a browser', [
+    'jshint',
+    'jasmine:shell:build',
+    'connect:test',
+    'open:test',
+    'watch'
+  ]);
+
+  grunt.registerTask('version', 'Shows version number', function () {
+    var pkg = grunt.file.readJSON('package.json');
+    console.log(pkg.name, pkg.version);
+  })
 };

@@ -97,7 +97,7 @@ module.exports = function (grunt) {
       }
     },
     clean: {
-      all: ['.tmp', '.grunt', 'test/index.html']
+      all: ['.tmp', '.grunt', 'test/index.html', 'build', '*.tar.gz']
     },
     copy: {
       release: {
@@ -149,8 +149,16 @@ module.exports = function (grunt) {
     'watch'
   ]);
 
+  grunt.registerTask('release', 'Generates a release tarball', [
+    'sass:prod',
+    'test',
+    'clean',
+    'copy:release',
+    'compress:release'
+  ]);
+
   grunt.registerTask('version', 'Shows version number', function () {
     var pkg = grunt.file.readJSON('package.json');
     console.log(pkg.name, pkg.version);
-  })
+  });
 };

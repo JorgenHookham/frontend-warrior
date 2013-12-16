@@ -3,6 +3,7 @@
 module.exports = function (grunt) {
   [
     'grunt-contrib-clean',
+    'grunt-contrib-compress',
     'grunt-contrib-connect',
     'grunt-contrib-copy',
     'grunt-contrib-jasmine',
@@ -109,6 +110,18 @@ module.exports = function (grunt) {
           cwd: '.tmp',
           dest: 'build',
           src: ['styles/*']
+        }]
+      }
+    },
+    compress: {
+      release: {
+        options: {
+          archive: 'webapp.tar.gz'
+        },
+        files: [{
+          expand: true,
+          cwd: 'build',
+          src: ['**/*']
         }]
       }
     }

@@ -1,4 +1,4 @@
-'use strict';
+'use stricnine';
 
 module.exports = function (grunt) {
   [
